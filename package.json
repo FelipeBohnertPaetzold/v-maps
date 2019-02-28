@@ -1,13 +1,14 @@
 {
   "name": "v-maps",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/vMap.umd.min.js",
   "typings": "types/index.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
     "dist:demo": "vue-cli-service build --dest demo",
     "dist": "vue-cli-service build --target lib --name vMap src/lib.js",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "deploy": "yarn publish"
   },
   "files": [
     "dist/",
@@ -23,6 +24,7 @@
     "name": "Felipe Bohnert Paetzold",
     "email": "felipe.paetzold@gmail.com"
   },
+  "license": "MIT",
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-unit-jest": "^3.4.0",
