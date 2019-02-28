@@ -1,34 +1,87 @@
 # v-maps
+A simple Google Maps component for Vue
 
-## Project setup
-```
-yarn install
-```
+### Install
+run:
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+    yarn add v-maps
+or:
+    
+    npm install v-maps --save
+### Usage
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+- Globally registration:
+    
+    ```js
+      import Vue from 'vue'
+      import VMaps from 'v-maps'
+      
+      Vue.use(VMaps)
+    ```
+    - using global registration in component
+    
+    ```vue
+    <template>
+      <v-map :center="{lat: -23.4070511, lng: -51.9428867}" api-key="YOUR_GOOGLE_MAPS_API_KEY" />
+    </template>
+    ```
+    - using global registration map with markers
+    
+    ```vue
+    <template>
+      <v-map :center="center" api-key="YOUR_GOOGLE_MAPS_API_KEY">
+        <v-marker :position="center" />
+      </v-map>
+    </template>
+  
+    <script>
+      export default {
+        computed: {
+          center() {
+            return { lat: -23.4070511, lng: -51.9428867 }
+          }        
+        }
+      }
+    </script>
+    ```
+    
+- Locally registration
+   
+   ```vue
+   <template>
+     <v-map :center="center" api-key="YOUR_GOOGLE_MAPS_API_KEY">
+       <v-marker :position="center" />
+     </v-map>
+   </template>
 
-### Run your tests
-```
-yarn run test
-```
+   <script>
+     import { VMap, VMarker } from 'v-maps'
+   
+     export default {
+       computed: {
+         center() {
+           return { lat: -23.4070511, lng: -51.9428867 }
+         }        
+       },
+       components: { VMarker, VMap }
+     }
+   </script>
+   ```
+### Properties
 
-### Lints and fixes files
-```
-yarn run lint
-```
+ - v-map
 
-### Run your unit tests
-```
-yarn run test:unit
-```
+    | Property  |  Required |  Type |  Default | Description
+    |---|---|---|---|---
+    |  apiKey |  yes  |  String |  | Your api key for google maps
+    | zoom | no | Number | 4 | The zoom level  
+    | center | yes | Object | | The center position for map ```{ lat: -45.2121, lng: -43.2131 }```
+    | mapId  |  no |  String |  map  | ID of the div on which the map will be mounted
+    |  options | no  |  Object  |  {}  | Options for map (https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+ - v-marker
+
+    | Property  |  Required |  Type |  Default | Description
+    |---|---|---|---|---
+    | position | yes | Object | | The marker position ```{ lat: -45.2121, lng: -43.2131 }```
+    | options | no | Object | {} | Options for marker (https://developers.google.com/maps/documentation/javascript/markers)
