@@ -1,28 +1,41 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="pug">
+  #app
+    .flex-box-centered
+      v-map.map(:api-key="apiKey" :center="center" :zoom="18")
+        v-marker(:position="center")
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import VMap from './components/VMap'
+  import VMarker from './components/VMarker'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  export default {
+    name: 'app',
+    computed: {
+      apiKey() {
+        return 'AIzaSyAguspW0GvJDNxK3w6kwdqdghJbPlcf82c'
+      }
+    },
+    data() {
+      return { center: { lat: -23.4070511, lng: -51.9428867 } }
+    },
+    components: { VMap, VMarker }
   }
-}
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="stylus">
+  body
+    margin 0
+    padding 0
+  .flex-box-centered
+    height 100vh
+    width 100%
+    align-items center
+    justify-content center
+    display flex
+    flex-direction column
+    .map
+      border-radius 15px
+      width 60vw
+      height 60vw
 </style>
