@@ -1,6 +1,8 @@
 # v-maps
 A simple Google Maps component for Vue
 
+#### [Live Demo](https://felipebohnertpaetzold.github.io/v-maps)
+
 ### Install
 run:
 
