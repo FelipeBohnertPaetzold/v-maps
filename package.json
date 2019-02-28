@@ -5,7 +5,7 @@
   "typings": "types/index.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "dist:demo": "vue-cli-service build --dest demo",
+    "dist:demo": "vue-cli-service build --dest docs",
     "dist": "vue-cli-service build --target lib --name vMap src/lib.js",
     "test:unit": "vue-cli-service test:unit",
     "deploy": "yarn publish"
