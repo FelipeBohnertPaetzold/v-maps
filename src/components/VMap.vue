@@ -5,6 +5,7 @@
 
 <script>
   import loadMap from '../utils/loadMap'
+  import mapEvents from './mapEvents'
 
   export default {
     props: {
@@ -25,7 +26,17 @@
           center,
           zoom
         })
+
+        this.addListeners()
+
         this.showSlot = true
+      },
+      addListeners() {
+        mapEvents.forEach(mappedEvent => {
+          this.map.addListener(mappedEvent.event, () => {
+            this.$emit(mappedEvent.emit, this.map)
+          })
+        })
       }
     },
     async created() {
