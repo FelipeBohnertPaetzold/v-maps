@@ -18,6 +18,9 @@
         position,
         map: $parent.map
       })
+    },
+    destroyed(){
+      this.marker.setMap(null)
     }
   }
 </script>
