@@ -87,3 +87,29 @@ or:
     |---|---|---|---|---
     | position | yes | Object | | The marker position ```{ lat: -45.2121, lng: -43.2131 }```
     | options | no | Object | {} | Options for marker (https://developers.google.com/maps/documentation/javascript/markers)
+
+### Events
+
+- v-map(for more details check the google documentation in https://developers.google.com/maps/documentation/javascript/events)
+    
+    | Vue Event          | Params | Native google map event
+    |--------------------|--------|------------------------
+    | bounds-changed     | map    | bounds_changed
+    | center-changed     | map    | center_changed
+    | click              | map    | click
+    | double-click       | map    | dblclick
+    | drag               | map    | drag
+    | drag-end           | map    | dragend
+    | drag-start         | map    | dragstart
+    | heading-changed    | map    | heading_changed
+    | idle               | map    | idle
+    | map-type-id-changed| map    | maptypeid_changed
+    | mouse-move         | map    | mousemove
+    | mouse-out          | map    | mouseout
+    | mouse-over         | map    | mouseover
+    | projection-changed | map    | projection_changed
+    | resize             | map    | resize
+    | right-click        | map    | rightclick
+    | tiles-loaded       | map    | tilesloaded
+    | tilt-changed       | map    | tilt_changed
+    | zoom-changed       | map    | zoom-changed
