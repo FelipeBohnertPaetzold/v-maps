@@ -25,7 +25,7 @@
         @tilt-changed="focusEvent('tilt-changed')"
         @zoom-changed="focusEvent('zoom-changed')"
       )
-        v-marker(:position="center")
+        v-marker(:position="center" :info-window="infoWindow")
       .events-box
         h1 Map Events
         .event(v-for="event in events" :class="{active: focused.indexOf(event) > -1}") {{ event }}
@@ -44,6 +44,11 @@
       },
       events() {
         return mapEvents.map(i => i.emit)
+      },
+      infoWindow() {
+        return '' +
+          '<h1>Hello World</h1>' +
+          '<p class=\'paragraph\'>This is a info window support for v-maps. ;)</p>'
       }
     },
     data() {
@@ -70,6 +75,17 @@
 <style lang="stylus">
   *
     font-family "Helvetica Neue"
+    margin 0
+    padding 0
+    color #444
+
+  h1
+    font-size 1.2rem
+
+  p.paragraph
+    font-size .9rem
+    font-weight normal
+    padding-top .4rem
 
   body
     margin 0

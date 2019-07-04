@@ -6,21 +6,36 @@
   export default {
     props: {
       position: { type: Object, required: true },
+      infoWindow: { type: String },
       options: { type: Object, default: () => ({}) }
     },
     data() {
-      return { marker: null }
+      return { markerRef: null, infoWindowRef: null }
     },
+    methods: {
+      addInfoWindow() {
+        this.infoWindowRef = new window.google.maps.InfoWindow({
+          content: this.infoWindow
+        })
+        this.markerRef.addListener('click', () => {
+          this.infoWindowRef.open(map, this.markerRef)
+        })
+      }
+    },
+
     created() {
       const { position, options, $parent } = this
-      this.marker = new window.google.maps.Marker({
+      this.markerRef = new window.google.maps.Marker({
         ...options,
         position,
         map: $parent.map
       })
+      if (this.infoWindow) {
+        this.addInfoWindow()
+      }
     },
-    destroyed(){
-      this.marker.setMap(null)
+    destroyed() {
+      this.markerRef.setMap(null)
     }
   }
 </script>

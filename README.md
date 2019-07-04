@@ -69,24 +69,25 @@ or:
      }
    </script>
    ```
-### Properties
+### Props
 
  - v-map
 
-    | Property  |  Required |  Type |  Default | Description
-    |---|---|---|---|---
-    |  apiKey |  yes  |  String |  | Your api key for google maps
-    | zoom | no | Number | 4 | The zoom level  
-    | center | yes | Object | | The center position for map ```{ lat: -45.2121, lng: -43.2131 }```
-    | mapId  |  no |  String |  map  | ID of the div on which the map will be mounted
-    |  options | no  |  Object  |  {}  | Options for map (https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions)
+    | Property  |  Required |  Type  |  Default | Description
+    |-----------|-----------|--------|----------|----------------
+    | api-key   | yes       | String |          | Your api key for google maps
+    | center    | yes       | Object |          | The center position for map ```{ lat: -45.2121, lng: -43.2131 }```
+    | zoom      | no        | Number | 4        | The zoom level  
+    | map-id    | no        | String | map      | ID of the div on which the map will be mounted
+    | options   | no        | Object | {}       | Options for map (https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions)
 
  - v-marker
 
-    | Property  |  Required |  Type |  Default | Description
-    |---|---|---|---|---
-    | position | yes | Object | | The marker position ```{ lat: -45.2121, lng: -43.2131 }```
-    | options | no | Object | {} | Options for marker (https://developers.google.com/maps/documentation/javascript/markers)
+    | Property    |  Required |  Type  |  Default | Description
+    |-------------|-----------|--------|----------|-----------------
+    | position    | yes       | Object |          | The marker position ```{ lat: -45.2121, lng: -43.2131 }```
+    | options     | no        | Object | {}       | Options for marker (https://developers.google.com/maps/documentation/javascript/markers)
+    | info-window | no        | String |          | Info view popup for marker (https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple)
 
 ### Events
 
