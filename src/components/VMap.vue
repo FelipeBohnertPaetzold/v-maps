@@ -1,22 +1,23 @@
 <template lang="pug">
   div(:id="mapId")
-    slot(:map="map" v-if="showSlot")
+    .error-box(v-if="error") {{ error }}
+    slot(:map="map" v-if="showSlot && !error")
 </template>
 
 <script>
-  import loadMap from '../utils/loadMap'
+  import googleMaps from '../utils/googleMaps'
   import mapEvents from './mapEvents'
 
   export default {
     props: {
-      apiKey: { type: String, required: true },
+      apiKey: { type: String, default: () => '' },
       mapId: { type: String, default: () => 'map' },
       options: { type: Object, default: () => ({}) },
       center: { type: Object, required: true },
       zoom: { type: Number, default: () => 4 }
     },
     data() {
-      return { map: null, showSlot: false }
+      return { map: null, showSlot: false, error: '' }
     },
     methods: {
       initMap() {
@@ -40,9 +41,22 @@
       }
     },
     async created() {
-      await loadMap(this.apiKey)
-
-      this.initMap()
+      try {
+        await googleMaps.load(this.apiKey)
+        this.initMap()
+      } catch (e) {
+        this.error = e.message
+      }
     }
   }
 </script>
+
+<style lang="stylus">
+  .error-box
+    height 100%
+    display flex
+    align-items center
+    justify-content center
+    color orangered
+    background-color #fafafa
+</style>

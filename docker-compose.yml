@@ -8,4 +8,5 @@ services:
     command: sh -c 'yarn && yarn serve'
     volumes:
       - .:/app
+      - ~/.gitconfig:/etc/gitconfig
     working_dir: /app

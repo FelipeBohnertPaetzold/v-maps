@@ -18,7 +18,7 @@ or:
       import Vue from 'vue'
       import VMaps from 'v-maps'
       
-      Vue.use(VMaps)
+      Vue.use(VMaps, { apiKey: 'YOUR_GOOGLE_MAPS_API_KEY' })
     ```
     - using global registration in component
     
@@ -75,8 +75,8 @@ or:
 
     | Property  |  Required |  Type  |  Default | Description
     |-----------|-----------|--------|----------|----------------
-    | api-key   | yes       | String |          | Your api key for google maps
     | center    | yes       | Object |          | The center position for map ```{ lat: -45.2121, lng: -43.2131 }```
+    | api-key   | no        | String | '        | Your api key for google maps
     | zoom      | no        | Number | 4        | The zoom level  
     | map-id    | no        | String | map      | ID of the div on which the map will be mounted
     | options   | no        | Object | {}       | Options for map (https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions)
