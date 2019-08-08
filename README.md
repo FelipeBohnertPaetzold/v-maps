@@ -18,7 +18,9 @@ or:
       import Vue from 'vue'
       import VMaps from 'v-maps'
       
-      Vue.use(VMaps, { apiKey: 'YOUR_GOOGLE_MAPS_API_KEY' })
+      // { key: string, version?: string, libraries?: Array<string> }
+      const googleApiOptions = {key: 'YOUR_GOOGLE_MAPS_API_KEY'}
+      Vue.use(VMaps, googleApiOptions)
     ```
     - using global registration in component
     
@@ -73,13 +75,14 @@ or:
 
  - v-map
 
-    | Property  |  Required |  Type  |  Default | Description
-    |-----------|-----------|--------|----------|----------------
-    | center    | yes       | Object |          | The center position for map ```{ lat: -45.2121, lng: -43.2131 }```
-    | api-key   | no        | String | '        | Your api key for google maps
-    | zoom      | no        | Number | 4        | The zoom level  
-    | map-id    | no        | String | map      | ID of the div on which the map will be mounted
-    | options   | no        | Object | {}       | Options for map (https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions)
+    | Property    |  Required |  Type  |  Default | Description
+    |-------------|-----------|--------|----------|----------------
+    | center      | yes       | Object |          | The center position for map ```{ lat: -45.2121, lng: -43.2131 }```
+    | api-key     | no        | String |          | Your api key for google maps
+    | api-options | no        | Object | {}       | Options to configure your google, libraries, version ...
+    | zoom        | no        | Number | 4        | The zoom level  
+    | map-id      | no        | String | map      | ID of the div on which the map will be mounted
+    | options     | no        | Object | {}       | Options for map (https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions)
 
  - v-marker
 
