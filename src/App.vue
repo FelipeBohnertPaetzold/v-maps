@@ -2,7 +2,6 @@
   #app
     .flex-box-centered
       v-map.map(
-        :api-key="apiKey"
         :center="center"
         :zoom="18"
         @bounds-changed="focusEvent('bounds-changed')"
@@ -32,16 +31,11 @@
 </template>
 
 <script>
-  import VMap from './components/VMap'
-  import VMarker from './components/VMarker'
   import mapEvents from './components/mapEvents'
 
   export default {
     name: 'app',
     computed: {
-      apiKey() {
-        return 'AIzaSyAguspW0GvJDNxK3w6kwdqdghJbPlcf82c'
-      },
       events() {
         return mapEvents.map(i => i.emit)
       },
@@ -63,12 +57,10 @@
         }
         this.focused.push(eventString)
         this[eventString] = setTimeout(() => {
-          console.log(eventString)
           this.focused.shift(eventString)
         }, 1200)
       }
-    },
-    components: { VMap, VMarker }
+    }
   }
 </script>
 

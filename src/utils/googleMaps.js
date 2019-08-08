@@ -1,4 +1,5 @@
 import asyncJs from './asyncJs'
+import queryString from './queryString'
 
 class GoogleMaps {
   promise = null
@@ -7,12 +8,13 @@ class GoogleMaps {
     return window.google && window.google.maps
   }
 
-  load(apiKey) {
-    if (!apiKey && !this.promise) {
+  load(params) {
+    if (!params.key && !this.promise) {
       throw new Error('Google API key not provided')
     }
     if (!this.loaded && !this.promise) {
-      this.promise = asyncJs(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`)
+      console.log(`https://maps.googleapis.com/maps/api/js?${queryString(params)}`)
+      this.promise = asyncJs(`https://maps.googleapis.com/maps/api/js?${queryString(params)}`)
     }
     return this.promise
   }

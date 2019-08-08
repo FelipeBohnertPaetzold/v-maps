@@ -10,6 +10,7 @@
 
   export default {
     props: {
+      apiOptions: { type: Object, default: () => ({}) },
       apiKey: { type: String, default: () => '' },
       mapId: { type: String, default: () => 'map' },
       options: { type: Object, default: () => ({}) },
@@ -42,7 +43,8 @@
     },
     async created() {
       try {
-        await googleMaps.load(this.apiKey)
+        const apiOptions = { ...this.apiOptions, key: this.apiKey || this.apiOptions.key }
+        await googleMaps.load(apiOptions)
         this.initMap()
       } catch (e) {
         this.error = e.message

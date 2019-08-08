@@ -5,8 +5,8 @@ import googleMaps from './utils/googleMaps'
 export { VMap, VMarker }
 
 export default {
-  install(Vue, { apiKey = '' }) {
-    googleMaps.load(apiKey)
+  install(Vue, params = { apiKey: '', version: '', libraries: [] }) {
+    googleMaps.load(params)
     Vue.component('v-map', VMap)
     Vue.component('v-marker', VMarker)
   }
