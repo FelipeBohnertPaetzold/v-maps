@@ -26,14 +26,14 @@ or:
     
     ```vue
     <template>
-      <v-map :center="{lat: -23.4070511, lng: -51.9428867}" api-key="YOUR_GOOGLE_MAPS_API_KEY" />
+      <v-map :center="{lat: -23.4070511, lng: -51.9428867}" />
     </template>
     ```
     - using global registration map with markers
     
     ```vue
     <template>
-      <v-map :center="center" api-key="YOUR_GOOGLE_MAPS_API_KEY">
+      <v-map :center="center">
         <v-marker :position="center" />
       </v-map>
     </template>
