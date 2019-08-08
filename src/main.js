@@ -4,7 +4,7 @@ import VMaps from './lib'
 
 Vue.config.productionTip = false
 
-Vue.use(VMaps, { key: 'AIzaSyAguspW0GvJDNxK3w6kwdqdghJbPlcf82c', version: '2.8' })
+Vue.use(VMaps, { apiKey: 'AIzaSyAguspW0GvJDNxK3w6kwdqdghJbPlcf82c', version: '2.8' })
 new Vue({
   render: h => h(App)
 }).$mount('#app')
