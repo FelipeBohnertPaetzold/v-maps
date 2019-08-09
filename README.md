@@ -1,5 +1,8 @@
 # v-maps
 [![Build Status](https://travis-ci.org/FelipeBohnertPaetzold/v-maps.svg?branch=master)](https://travis-ci.org/FelipeBohnertPaetzold/v-maps)
+<a href="https://npmcharts.com/compare/v-maps?minimal=true"><img src="https://img.shields.io/npm/dm/v-maps.svg" alt="Downloads"></a>
+<a href="https://www.npmjs.com/package/v-maps"><img src="https://img.shields.io/npm/v/v-maps.svg" alt="Version"></a>
+<a href="https://www.npmjs.com/package/v-maps"><img src="https://img.shields.io/npm/l/v-maps.svg" alt="License"></a>
 
 A simple Google Maps component for Vue
 
