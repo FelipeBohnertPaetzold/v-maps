@@ -3,4 +3,5 @@ cache:
   directories:
     - node_module
 script:
+  - npm instll
   - npm run dist
