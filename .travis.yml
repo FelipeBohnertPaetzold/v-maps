@@ -1,0 +1,10 @@
+language: node_js
+script:
+  - yarn dist
+deploy:
+  provider: npm
+  email: $EMAIL
+  api_key: $NPM_TOKEN
+  on:
+    tags: true
+    repo: FelipeBohnertPaetzold/v-maps
