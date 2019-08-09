@@ -1,4 +1,6 @@
 # v-maps
+[![Build Status](https://travis-ci.org/FelipeBohnertPaetzold/v-maps.svg?branch=master)](https://travis-ci.org/FelipeBohnertPaetzold/v-maps)
+
 A simple Google Maps component for Vue
 
 #### [Live Demo](https://felipebohnertpaetzold.github.io/v-maps)
