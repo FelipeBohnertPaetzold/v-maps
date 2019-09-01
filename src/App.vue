@@ -31,37 +31,39 @@
 </template>
 
 <script>
-  import mapEvents from './components/mapEvents'
+import mapEvents from "./components/mapEvents";
 
-  export default {
-    name: 'app',
-    computed: {
-      events() {
-        return mapEvents.map(i => i.emit)
-      },
-      infoWindow() {
-        return '' +
-          '<h1>Hello World</h1>' +
-          '<p class=\'paragraph\'>This is a info window support for v-maps. ;)</p>'
-      }
+export default {
+  name: "app",
+  computed: {
+    events() {
+      return mapEvents.map(i => i.emit);
     },
-    data() {
-      return { center: { lat: -23.4070511, lng: -51.9428867 }, focused: [] }
-    },
-    methods: {
-      focusEvent(eventString) {
-        const index = this.focused.findIndex(i => i === eventString)
-        if (index > -1) {
-          clearTimeout(this[eventString])
-          this.focused.shift(eventString)
-        }
-        this.focused.push(eventString)
-        this[eventString] = setTimeout(() => {
-          this.focused.shift(eventString)
-        }, 1200)
+    infoWindow() {
+      return (
+        "" +
+        "<h1>Hello World</h1>" +
+        "<p class='paragraph'>This is a info window support for v-maps. ;)</p>"
+      );
+    }
+  },
+  data() {
+    return { center: { lat: -23.4070511, lng: -51.9428867 }, focused: [] };
+  },
+  methods: {
+    focusEvent(eventString) {
+      const index = this.focused.findIndex(i => i === eventString);
+      if (index > -1) {
+        clearTimeout(this[eventString]);
+        this.focused.shift(eventString);
       }
+      this.focused.push(eventString);
+      this[eventString] = setTimeout(() => {
+        this.focused.shift(eventString);
+      }, 1200);
     }
   }
+};
 </script>
 
 <style lang="stylus">
@@ -79,7 +81,7 @@
     font-weight normal
     padding-top .4rem
 
-  body
+  body  
     margin 0
     padding 0
 
@@ -93,8 +95,10 @@
 
     .map
       border-radius 15px
-      width 60vw
-      height 60vw
+      width 60vh
+      height 60vh
+      max-width 800px
+      max-height 800px
 
     .events-box
       padding 2rem
