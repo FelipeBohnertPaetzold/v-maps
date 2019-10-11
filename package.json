@@ -1,6 +1,6 @@
 {
   "name": "v-maps",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "main": "dist/vMap.umd.min.js",
   "typings": "types/index.d.ts",
   "scripts": {
