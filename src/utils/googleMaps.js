@@ -13,9 +13,6 @@ class GoogleMaps {
       console.warn('apiKey is deprecated! Please use key')
       params.key = params.apiKey
     }
-    if (!params.key && !this.promise) {
-      throw new Error('Google API key not provided')
-    }
     if (!this.loaded && !this.promise) {
       this.promise = asyncJs(`https://maps.googleapis.com/maps/api/js?${queryString(params)}`)
     }
