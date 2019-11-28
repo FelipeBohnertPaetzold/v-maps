@@ -54,25 +54,47 @@ or:
     </script>
     ```
     
+  - using global registration map with polygon
+  ```vue
+  <template>
+    <v-map :center="center">
+      <v-polygon v-model="polygonPaths" :edition="edition"/>
+    </v-map>
+  </template>
+  
+  <script>
+    export default {
+      data() {
+        return { polygonPaths: [], edition: false }
+      },
+    }
+  </script>
+  ```
+
 - Locally registration
    
    ```vue
    <template>
      <v-map :center="center" api-key="YOUR_GOOGLE_MAPS_API_KEY">
        <v-marker :position="center" />
+       <v-polygon v-model="polygonPaths" :edition="edition"/>
      </v-map>
    </template>
 
    <script>
-     import { VMap, VMarker } from 'v-maps'
+     import { VMap, VMarker, VPolygon } from 'v-maps'
    
      export default {
+       data() {
+         return { polygonPaths: [], edition: false }
+       },
+
        computed: {
          center() {
            return { lat: -23.4070511, lng: -51.9428867 }
          }        
        },
-       components: { VMarker, VMap }
+       components: { VMarker, VMap, VPolygon }
      }
    </script>
    ```
@@ -80,22 +102,32 @@ or:
 
  - v-map
 
-    | Property    |  Required |  Type  |  Default | Description
-    |-------------|-----------|--------|----------|----------------
-    | center      | yes       | Object |          | The center position for map ```{ lat: -45.2121, lng: -43.2131 }```
-    | api-key     | no        | String |          | Your api key for google maps
-    | api-options | no        | Object | {}       | Options to configure your google, libraries, version ...
-    | zoom        | no        | Number | 4        | The zoom level  
-    | map-id      | no        | String | map      | ID of the div on which the map will be mounted
-    | options     | no        | Object | {}       | Options for map (https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions)
+    | Property    |  Required |  Type   |  Default | Description
+    |-------------|-----------|---------|----------|----------------
+    | center      | yes       | Object  |          | The center position for map ```{ lat: -45.2121, lng: -43.2131 }```
+    | api-key     | no        | String  |          | Your api key for google maps
+    | api-options | no        | Object  | {}       | Options to configure your google, libraries, version ...
+    | zoom        | no        | Number  | 4        | The zoom level  
+    | map-id      | no        | String  | map      | ID of the div on which the map will be mounted
+    | options     | no        | Object  | {}       | Options for map (https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions)
 
  - v-marker
 
-    | Property    |  Required |  Type  |  Default | Description
-    |-------------|-----------|--------|----------|-----------------
-    | position    | yes       | Object |          | The marker position ```{ lat: -45.2121, lng: -43.2131 }```
-    | options     | no        | Object | {}       | Options for marker (https://developers.google.com/maps/documentation/javascript/markers)
-    | info-window | no        | String |          | Info view popup for marker (https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple)
+    | Property    |  Required |  Type   |  Default | Description
+    |-------------|-----------|---------|----------|-----------------
+    | position    | yes       | Object  |          | The marker position ```{ lat: -45.2121, lng: -43.2131 }```
+    | options     | no        | Object  | {}       | Options for marker (https://developers.google.com/maps/documentation/javascript/markers)
+    | info-window | no        | String  |          | Info view popup for marker (https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple)
+  
+ - v-polygon
+    
+    | Property    |  Required |  Type   |  Default | Description
+    |-------------|-----------|---------|----------|-----------------
+    | value       | yes       | Array   |          | Value from v-model
+    | edition     | no        | Boolean | false    | Allows to edit vertexes and drag polygon
+    | strokeColor | no        | String  | #00ff00  | Polygon's stroke color
+    | fillColor   | no        | String  | #00ff00  | Polygon's inner color
+    | options     | no        | Object  | {}       | Other options for polygons (https://developers.google.com/maps/documentation/javascript/reference/polygon#PolygonOptions)
 
 ### Events
 
