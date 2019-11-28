@@ -43,8 +43,5 @@
     "vue-maps",
     "v-maps",
     "vue-google-maps"
-  ],
-  "engines": {
-    "node": ">=10 <=13"
-  }
+  ]
 }
