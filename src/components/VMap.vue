@@ -28,15 +28,15 @@
           center,
           zoom
         })
-
+        window.map = this.map
         this.addListeners()
 
         this.showSlot = true
       },
       addListeners() {
         mapEvents.forEach(mappedEvent => {
-          this.map.addListener(mappedEvent.event, () => {
-            this.$emit(mappedEvent.emit, this.map)
+          this.map.addListener(mappedEvent.event, (event) => {
+            this.$emit(mappedEvent.emit, {map: this.map, event})
           })
         })
       }
