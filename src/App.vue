@@ -1,30 +1,35 @@
 <template lang="pug">
   #app
     .flex-box-centered
-      v-map.map(
-        :center="center"
-        :zoom="18"
-        @bounds-changed="focusEvent('bounds-changed')"
-        @center-changed="focusEvent('center-changed')"
-        @click="focusEvent('click')"
-        @double-click="focusEvent('double-click')"
-        @drag="focusEvent('drag')"
-        @drag-end="focusEvent('drag-end')"
-        @drag-start="focusEvent('drag-start')"
-        @heading-changed="focusEvent('heading-changed')"
-        @idle="focusEvent('idle')"
-        @map-type-id-changed="focusEvent('map-type-id-changed')"
-        @mouse-move="focusEvent('mouse-move')"
-        @mouse-out="focusEvent('mouse-out')"
-        @mouse-over="focusEvent('mouse-over')"
-        @projection-changed="focusEvent('projection-changed')"
-        @resize="focusEvent('resize')"
-        @right-click="focusEvent('right-click')"
-        @tiles-loaded="focusEvent('tiles-loaded')"
-        @tilt-changed="focusEvent('tilt-changed')"
-        @zoom-changed="focusEvent('zoom-changed')"
-      )
-        v-marker(:position="center" :info-window="infoWindow")
+      div
+        v-map.map(
+          :center="center"
+          :zoom="18"
+          @bounds-changed="focusEvent('bounds-changed')"
+          @center-changed="focusEvent('center-changed')"
+          @click="onClick"
+          @double-click="focusEvent('double-click')"
+          @drag="focusEvent('drag')"
+          @drag-end="focusEvent('drag-end')"
+          @drag-start="focusEvent('drag-start')"
+          @heading-changed="focusEvent('heading-changed')"
+          @idle="focusEvent('idle')"
+          @map-type-id-changed="focusEvent('map-type-id-changed')"
+          @mouse-move="focusEvent('mouse-move')"
+          @mouse-out="focusEvent('mouse-out')"
+          @mouse-over="focusEvent('mouse-over')"
+          @projection-changed="focusEvent('projection-changed')"
+          @resize="focusEvent('resize')"
+          @right-click="focusEvent('right-click')"
+          @tiles-loaded="focusEvent('tiles-loaded')"
+          @tilt-changed="focusEvent('tilt-changed')"
+          @zoom-changed="focusEvent('zoom-changed')"
+        )
+          v-marker(:position="center" :info-window="infoWindow")
+          v-polygon(v-model="polygonPaths" :edition="polygonEdition")
+        .polygon-options
+          input#polygonEdition(type="checkbox" v-model="polygonEdition")
+          label(for="polygonEdition") Allow Edition
       .events-box
         h1 Map Events
         .event(v-for="event in events" :class="{active: focused.indexOf(event) > -1}") {{ event }}
@@ -48,9 +53,20 @@ export default {
     }
   },
   data() {
-    return { center: { lat: -23.4070511, lng: -51.9428867 }, focused: [] };
+    return { 
+      center: { lat: -23.4070511, lng: -51.9428867 },
+      focused: [],
+      polygonPaths: [],
+      polygonEdition: false
+    }
   },
   methods: {
+    onClick({map, event}) {
+      this.focusEvent('click')    
+      if (this.polygonEdition) {
+        this.polygonPaths.push({lat: event.latLng.lat(), lng: event.latLng.lng()})
+      }
+    },
     focusEvent(eventString) {
       const index = this.focused.findIndex(i => i === eventString);
       if (index > -1) {
@@ -99,6 +115,13 @@ export default {
       height 60vh
       max-width 800px
       max-height 800px
+
+    .polygon-options
+      padding 10px
+      text-align center
+
+      label
+        margin-left 10px
 
     .events-box
       padding 2rem
