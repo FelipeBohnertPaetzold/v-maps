@@ -14,7 +14,7 @@ import googleMaps from '../../utils/googleMaps';
     },
 
     data() {
-      return { polygonRef: {}, infoWindowRef: null}
+      return { polygonRef: {}, infoWindowRef: null, }
     },
 
     created() {
@@ -30,6 +30,21 @@ import googleMaps from '../../utils/googleMaps';
         fillOpacity: 0.35,
         editable: edition,
         draggable: edition
+      })
+
+      this.polygonRef.addListener('rightclick', (event) => {
+        if (event.vertex > -1) {
+          this.polygonRef.getPath().removeAt(event.vertex)
+
+          const paths = []
+          this.polygonRef.getPath(0).forEach(path => {
+            paths.push({lat: path.lat(), lng: path.lng()})
+          })
+
+          this.value.splice(0)
+          this.value.push(...paths)
+          this.polygonRef.setPath(paths)
+        }
       })
     },
 
@@ -48,7 +63,6 @@ import googleMaps from '../../utils/googleMaps';
             paths.push({lat: path.lat(), lng: path.lng()})
           })
         }
-
         this.polygonRef.setPath(paths)
       },
     },
