@@ -28,7 +28,6 @@
           center,
           zoom
         })
-        window.map = this.map
         this.addListeners()
 
         this.showSlot = true
