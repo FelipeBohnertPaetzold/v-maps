@@ -157,6 +157,7 @@ or:
     | zoom-changed       | map, event              | zoom-changed
 
 - v-polygon
+
     | Vue Event          | Params                  | Native google map event
     |--------------------|-------------------------|------------------------
     | path-changed       | Current paths of polygon|
