@@ -50,12 +50,12 @@ import googleMaps from '../../utils/googleMaps';
           this.paths.splice(0)
           this.paths.push(...paths)
           this.polygonRef.setPath(paths)
-          this.$emit('changed-path', this.getLatLng(this.polygonRef.getPath().g))
+          this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
         }
       })
 
       this.polygonRef.addListener('mouseup', () => {
-        this.$emit('changed-path', this.getLatLng(this.polygonRef.getPath().g))
+        this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
       })
     },
 
@@ -73,7 +73,7 @@ import googleMaps from '../../utils/googleMaps';
           paths.push(...this.getLatLng(this.polygonRef.getPath().g))
         }
         this.polygonRef.setPath(paths)
-        this.$emit('changed-path', this.getLatLng(this.polygonRef.getPath().g))
+        this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
       },
     },
 
