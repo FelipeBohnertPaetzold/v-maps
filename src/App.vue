@@ -26,7 +26,7 @@
           @zoom-changed="focusEvent('zoom-changed')"
         )
           v-marker(:position="center" :info-window="infoWindow")
-          v-polygon(:paths="polygonPaths" :edition="polygonEdition" @path-changed="pathChangeHandler")
+          v-polygon(:paths="polygonPaths" :draggable="polygonEdition" :editable="polygonEdition" @path-changed="pathChangeHandler")
         .polygon-options
           input#polygonEdition(type="checkbox" v-model="polygonEdition")
           label(for="polygonEdition") Allow Edition
