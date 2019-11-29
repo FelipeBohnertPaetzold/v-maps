@@ -6,7 +6,7 @@
 import googleMaps from '../../utils/googleMaps';
   export default {
     props: {
-      value: { type: Array, required: true },
+      paths: { type: Array, required: true },
       edition: { type: Boolean, default: false },
       strokeColor: { type: String, default: '#0f0' },
       fillColor: { type: String, default: '#0f0' },
@@ -17,19 +17,25 @@ import googleMaps from '../../utils/googleMaps';
       return { polygonRef: {}, infoWindowRef: null, }
     },
 
+    methods: {
+      getLatLng(paths) {
+        return paths.map(path => ({ lat: path.lat(), lng: path.lng() }))
+      },
+    },
+
     created() {
-      const { paths, options, $parent, strokeColor, fillColor, edition, value } = this
+      const { paths, options, $parent, strokeColor, fillColor, edition } = this
       this.polygonRef = new window.google.maps.Polygon({
-        ...options,
-        paths: value,
-        map: $parent.map,    
-        strokeColor,
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor,
         fillOpacity: 0.35,
+        strokeColor,
+        fillColor,
+        ...options,
+        paths,
+        map: $parent.map,
         editable: edition,
-        draggable: edition
+        draggable: edition,
       })
 
       this.polygonRef.addListener('rightclick', (event) => {
@@ -41,15 +47,20 @@ import googleMaps from '../../utils/googleMaps';
             paths.push({lat: path.lat(), lng: path.lng()})
           })
 
-          this.value.splice(0)
-          this.value.push(...paths)
+          this.paths.splice(0)
+          this.paths.push(...paths)
           this.polygonRef.setPath(paths)
+          this.$emit('changed-path', this.getLatLng(this.polygonRef.getPath().g))
         }
+      })
+
+      this.polygonRef.addListener('mouseup', () => {
+        this.$emit('changed-path', this.getLatLng(this.polygonRef.getPath().g))
       })
     },
 
     watch: {
-      value(newValue) {
+      paths(newValue) {
         this.polygonRef.setPath(newValue)
       },
       
@@ -58,12 +69,11 @@ import googleMaps from '../../utils/googleMaps';
         this.polygonRef.setDraggable(newEditionValue)
         this.polygonRef.setEditable(newEditionValue)
 
-        if (this.polygonRef.getPath(0)) {
-          this.polygonRef.getPath(0).forEach(path => {
-            paths.push({lat: path.lat(), lng: path.lng()})
-          })
+        if (this.polygonRef.getPath()) {
+          paths.push(...this.getLatLng(this.polygonRef.getPath().g))
         }
         this.polygonRef.setPath(paths)
+        this.$emit('changed-path', this.getLatLng(this.polygonRef.getPath().g))
       },
     },
 
