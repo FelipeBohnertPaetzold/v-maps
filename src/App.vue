@@ -26,7 +26,7 @@
           @zoom-changed="focusEvent('zoom-changed')"
         )
           v-marker(:position="center" :info-window="infoWindow")
-          v-polygon(v-model="polygonPaths" :edition="polygonEdition")
+          v-polygon(:paths="polygonPaths" :edition="polygonEdition" @changed-path="pathChangeHandler")
         .polygon-options
           input#polygonEdition(type="checkbox" v-model="polygonEdition")
           label(for="polygonEdition") Allow Edition
@@ -66,6 +66,9 @@ export default {
       if (this.polygonEdition) {
         this.polygonPaths.push({lat: event.latLng.lat(), lng: event.latLng.lng()})
       }
+    },
+    pathChangeHandler(newPath) {
+      this.polygonPaths = [...newPath]
     },
     focusEvent(eventString) {
       const index = this.focused.findIndex(i => i === eventString);
