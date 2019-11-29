@@ -7,7 +7,8 @@ import googleMaps from '../../utils/googleMaps';
   export default {
     props: {
       paths: { type: Array, required: true },
-      edition: { type: Boolean, default: false },
+      editable: { type: Boolean, default: false },
+      draggable: { type: Boolean, default: false },
       strokeColor: { type: String, default: '#0f0' },
       fillColor: { type: String, default: '#0f0' },
       options: { type: Object, default: () => ({}) }
@@ -24,7 +25,7 @@ import googleMaps from '../../utils/googleMaps';
     },
 
     created() {
-      const { paths, options, $parent, strokeColor, fillColor, edition } = this
+      const { paths, options, $parent, strokeColor, fillColor, draggable, editable } = this
       this.polygonRef = new window.google.maps.Polygon({
         strokeOpacity: 0.8,
         strokeWeight: 2,
@@ -34,8 +35,8 @@ import googleMaps from '../../utils/googleMaps';
         ...options,
         paths,
         map: $parent.map,
-        editable: edition,
-        draggable: edition,
+        editable: editable,
+        draggable: draggable,
       })
 
       this.polygonRef.addListener('rightclick', (event) => {
@@ -60,14 +61,24 @@ import googleMaps from '../../utils/googleMaps';
     },
 
     watch: {
-      paths(newValue) {
-        this.polygonRef.setPath(newValue)
+      paths(newPathValue) {
+        this.polygonRef.setPath(newPathValue)
       },
       
-      edition(newEditionValue) {
+      editable(newEditableValue) {
         const paths = []
-        this.polygonRef.setDraggable(newEditionValue)
-        this.polygonRef.setEditable(newEditionValue)
+        this.polygonRef.setEditable(newEditableValue)
+
+        if (this.polygonRef.getPath()) {
+          paths.push(...this.getLatLng(this.polygonRef.getPath().g))
+        }
+        this.polygonRef.setPath(paths)
+        this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
+      },
+
+      draggable(newDraggableValue) {
+        const paths = []
+        this.polygonRef.setDraggable(newDraggableValue)
 
         if (this.polygonRef.getPath()) {
           paths.push(...this.getLatLng(this.polygonRef.getPath().g))
