@@ -67,6 +67,35 @@ or:
       data() {
         return { polygonPaths: [] }
       },
+
+      computed: {
+        center() {
+          return { lat: -23.4070511, lng: -51.9428867 }
+        }        
+      }
+    }
+  </script>
+  ```
+
+  - using global registration map with polyline
+  ```vue
+  <template>
+    <v-map :center="center">
+      <v-polyline :path="polylinePath" />
+    </v-map>
+  </template>
+  
+  <script>
+    export default {
+      data() {
+        return { polylinePath: [] }
+      },
+
+      computed: {
+        center() {
+          return { lat: -23.4070511, lng: -51.9428867 }
+        }        
+      }
     }
   </script>
   ```
@@ -78,15 +107,16 @@ or:
      <v-map :center="center" api-key="YOUR_GOOGLE_MAPS_API_KEY">
        <v-marker :position="center" />
        <v-polygon :paths="polygonPaths" />
+       <v-polyline :path="polylinePath" />
      </v-map>
    </template>
 
    <script>
-     import { VMap, VMarker, VPolygon } from 'v-maps'
+     import { VMap, VMarker, VPolygon, VPolyline } from 'v-maps'
    
      export default {
        data() {
-         return { polygonPaths: [] }
+         return { polygonPaths: [], polylinePath: [] }
        },
 
        computed: {
@@ -94,7 +124,7 @@ or:
            return { lat: -23.4070511, lng: -51.9428867 }
          }        
        },
-       components: { VMarker, VMap, VPolygon }
+       components: { VMarker, VMap, VPolygon, VPolyline }
      }
    </script>
    ```
@@ -130,34 +160,50 @@ or:
     | fillColor   | no        | String  | #00ff00  | Polygon's inner color
     | options     | no        | Object  | {}       | Other options for polygons (https://developers.google.com/maps/documentation/javascript/reference/polygon#PolygonOptions)
 
+ - v-polyline
+    
+    | Property    |  Required |  Type   |  Default | Description
+    |-------------|-----------|---------|----------|-----------------
+    | path        | yes       | Array   |          | Array of objects ```[{ lat: -23.407056, lng: -51.9428867}]```
+    | draggable   | no        | Boolean | false    | Allows to drag polyline
+    | editable    | no        | Boolean | false    | Allows to edit polyline's vertexes
+    | strokeColor | no        | String  | #00ff00  | Polyne's stroke color
+    | options     | no        | Object  | {}       | Other options for polyline (https://developers.google.com/maps/documentation/javascript/reference/polygon#PolylineOptions)
+
 ### Events
 
 - v-map(for more details check the google documentation in https://developers.google.com/maps/documentation/javascript/events)
-    
-    | Vue Event          | Params                  | Native google map event
-    |--------------------|-------------------------|------------------------
-    | bounds-changed     | map, event              | bounds_changed
-    | center-changed     | map, event              | center_changed
-    | click              | map, event              | click
-    | double-click       | map, event              | dblclick
-    | drag               | map, event              | drag
-    | drag-end           | map, event              | dragend
-    | drag-start         | map, event              | dragstart
-    | heading-changed    | map, event              | heading_changed
-    | idle               | map, event              | idle
-    | map-type-id-changed| map, event              | maptypeid_changed
-    | mouse-move         | map, event              | mousemove
-    | mouse-out          | map, event              | mouseout
-    | mouse-over         | map, event              | mouseover
-    | projection-changed | map, event              | projection_changed
-    | resize             | map, event              | resize
-    | right-click        | map, event              | rightclick
-    | tiles-loaded       | map, event              | tilesloaded
-    | tilt-changed       | map, event              | tilt_changed
-    | zoom-changed       | map, event              | zoom-changed
+
+    | Vue Event          | Params                    | Native google map event
+    |--------------------|---------------------------|------------------------
+    | bounds-changed     | map, event                | bounds_changed
+    | center-changed     | map, event                | center_changed
+    | click              | map, event                | click
+    | double-click       | map, event                | dblclick
+    | drag               | map, event                | drag
+    | drag-end           | map, event                | dragend
+    | drag-start         | map, event                | dragstart
+    | heading-changed    | map, event                | heading_changed
+    | idle               | map, event                | idle
+    | map-type-id-changed| map, event                | maptypeid_changed
+    | mouse-move         | map, event                | mousemove
+    | mouse-out          | map, event                | mouseout
+    | mouse-over         | map, event                | mouseover
+    | projection-changed | map, event                | projection_changed
+    | resize             | map, event                | resize
+    | right-click        | map, event                | rightclick
+    | tiles-loaded       | map, event                | tilesloaded
+    | tilt-changed       | map, event                | tilt_changed
+    | zoom-changed       | map, event                | zoom-changed
 
 - v-polygon
 
-    | Vue Event          | Params                  | Native google map event
-    |--------------------|-------------------------|------------------------
-    | path-changed       | Current paths of polygon|
+    | Vue Event          | Params                    | Native google map event
+    |--------------------|---------------------------|------------------------
+    | path-changed       | Current paths of polygon  |
+
+- v-polyline
+
+    | Vue Event          | Params                    | Native google map event
+    |--------------------|---------------------------|------------------------
+    | path-changed       | Current paths of polyline |
