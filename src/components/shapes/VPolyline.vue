@@ -48,7 +48,12 @@ import googleMaps from '../../utils/googleMaps';
           this.path.splice(0)
           this.path.push(...paths)
           this.polylineRef.setPath(paths)
+          this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().g))
         }
+      })
+
+      this.polylineRef.addListener('mouseup', () => {
+        this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().g))
       })
     },
 
