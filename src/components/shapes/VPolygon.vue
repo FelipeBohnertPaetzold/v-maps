@@ -6,8 +6,9 @@
 import googleMaps from '../../utils/googleMaps';
   export default {
     props: {
-      value: { type: Array, required: true },
-      edition: { type: Boolean, default: false },
+      paths: { type: Array, required: true },
+      editable: { type: Boolean, default: false },
+      draggable: { type: Boolean, default: false },
       strokeColor: { type: String, default: '#0f0' },
       fillColor: { type: String, default: '#0f0' },
       options: { type: Object, default: () => ({}) }
@@ -17,19 +18,25 @@ import googleMaps from '../../utils/googleMaps';
       return { polygonRef: {}, infoWindowRef: null, }
     },
 
+    methods: {
+      getLatLng(paths) {
+        return paths.map(path => ({ lat: path.lat(), lng: path.lng() }))
+      },
+    },
+
     created() {
-      const { paths, options, $parent, strokeColor, fillColor, edition, value } = this
+      const { paths, options, $parent, strokeColor, fillColor, draggable, editable } = this
       this.polygonRef = new window.google.maps.Polygon({
-        ...options,
-        paths: value,
-        map: $parent.map,    
-        strokeColor,
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor,
         fillOpacity: 0.35,
-        editable: edition,
-        draggable: edition
+        strokeColor,
+        fillColor,
+        ...options,
+        paths,
+        map: $parent.map,
+        editable: editable,
+        draggable: draggable,
       })
 
       this.polygonRef.addListener('rightclick', (event) => {
@@ -41,29 +48,43 @@ import googleMaps from '../../utils/googleMaps';
             paths.push({lat: path.lat(), lng: path.lng()})
           })
 
-          this.value.splice(0)
-          this.value.push(...paths)
+          this.paths.splice(0)
+          this.paths.push(...paths)
           this.polygonRef.setPath(paths)
+          this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
         }
+      })
+
+      this.polygonRef.addListener('mouseup', () => {
+        this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
       })
     },
 
     watch: {
-      value(newValue) {
-        this.polygonRef.setPath(newValue)
+      paths(newPathValue) {
+        this.polygonRef.setPath(newPathValue)
       },
       
-      edition(newEditionValue) {
+      editable(newEditableValue) {
         const paths = []
-        this.polygonRef.setDraggable(newEditionValue)
-        this.polygonRef.setEditable(newEditionValue)
+        this.polygonRef.setEditable(newEditableValue)
 
-        if (this.polygonRef.getPath(0)) {
-          this.polygonRef.getPath(0).forEach(path => {
-            paths.push({lat: path.lat(), lng: path.lng()})
-          })
+        if (this.polygonRef.getPath()) {
+          paths.push(...this.getLatLng(this.polygonRef.getPath().g))
         }
         this.polygonRef.setPath(paths)
+        this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
+      },
+
+      draggable(newDraggableValue) {
+        const paths = []
+        this.polygonRef.setDraggable(newDraggableValue)
+
+        if (this.polygonRef.getPath()) {
+          paths.push(...this.getLatLng(this.polygonRef.getPath().g))
+        }
+        this.polygonRef.setPath(paths)
+        this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
       },
     },
 

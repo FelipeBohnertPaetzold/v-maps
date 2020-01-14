@@ -58,14 +58,14 @@ or:
   ```vue
   <template>
     <v-map :center="center">
-      <v-polygon v-model="polygonPaths" :edition="edition"/>
+      <v-polygon :paths="polygonPaths" />
     </v-map>
   </template>
   
   <script>
     export default {
       data() {
-        return { polygonPaths: [], edition: false }
+        return { polygonPaths: [] }
       },
     }
   </script>
@@ -77,7 +77,7 @@ or:
    <template>
      <v-map :center="center" api-key="YOUR_GOOGLE_MAPS_API_KEY">
        <v-marker :position="center" />
-       <v-polygon v-model="polygonPaths" :edition="edition"/>
+       <v-polygon :paths="polygonPaths" />
      </v-map>
    </template>
 
@@ -86,7 +86,7 @@ or:
    
      export default {
        data() {
-         return { polygonPaths: [], edition: false }
+         return { polygonPaths: [] }
        },
 
        computed: {
@@ -123,8 +123,9 @@ or:
     
     | Property    |  Required |  Type   |  Default | Description
     |-------------|-----------|---------|----------|-----------------
-    | value       | yes       | Array   |          | Value from v-model
-    | edition     | no        | Boolean | false    | Allows to edit vertexes and drag polygon
+    | paths       | yes       | Array   |          | Array of objects ```[{ lat: -23.407056, lng: -51.9428867}]```
+    | draggable   | no        | Boolean | false    | Allows to drag polygon
+    | editable    | no        | Boolean | false    | Allows to edit polygon's vertexes
     | strokeColor | no        | String  | #00ff00  | Polygon's stroke color
     | fillColor   | no        | String  | #00ff00  | Polygon's inner color
     | options     | no        | Object  | {}       | Other options for polygons (https://developers.google.com/maps/documentation/javascript/reference/polygon#PolygonOptions)
@@ -133,24 +134,30 @@ or:
 
 - v-map(for more details check the google documentation in https://developers.google.com/maps/documentation/javascript/events)
     
-    | Vue Event          | Params | Native google map event
-    |--------------------|--------|------------------------
-    | bounds-changed     | map    | bounds_changed
-    | center-changed     | map    | center_changed
-    | click              | map    | click
-    | double-click       | map    | dblclick
-    | drag               | map    | drag
-    | drag-end           | map    | dragend
-    | drag-start         | map    | dragstart
-    | heading-changed    | map    | heading_changed
-    | idle               | map    | idle
-    | map-type-id-changed| map    | maptypeid_changed
-    | mouse-move         | map    | mousemove
-    | mouse-out          | map    | mouseout
-    | mouse-over         | map    | mouseover
-    | projection-changed | map    | projection_changed
-    | resize             | map    | resize
-    | right-click        | map    | rightclick
-    | tiles-loaded       | map    | tilesloaded
-    | tilt-changed       | map    | tilt_changed
-    | zoom-changed       | map    | zoom-changed
+    | Vue Event          | Params                  | Native google map event
+    |--------------------|-------------------------|------------------------
+    | bounds-changed     | map, event              | bounds_changed
+    | center-changed     | map, event              | center_changed
+    | click              | map, event              | click
+    | double-click       | map, event              | dblclick
+    | drag               | map, event              | drag
+    | drag-end           | map, event              | dragend
+    | drag-start         | map, event              | dragstart
+    | heading-changed    | map, event              | heading_changed
+    | idle               | map, event              | idle
+    | map-type-id-changed| map, event              | maptypeid_changed
+    | mouse-move         | map, event              | mousemove
+    | mouse-out          | map, event              | mouseout
+    | mouse-over         | map, event              | mouseover
+    | projection-changed | map, event              | projection_changed
+    | resize             | map, event              | resize
+    | right-click        | map, event              | rightclick
+    | tiles-loaded       | map, event              | tilesloaded
+    | tilt-changed       | map, event              | tilt_changed
+    | zoom-changed       | map, event              | zoom-changed
+
+- v-polygon
+
+    | Vue Event          | Params                  | Native google map event
+    |--------------------|-------------------------|------------------------
+    | path-changed       | Current paths of polygon|
