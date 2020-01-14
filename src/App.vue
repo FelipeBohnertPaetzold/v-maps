@@ -26,10 +26,14 @@
           @zoom-changed="focusEvent('zoom-changed')"
         )
           v-marker(:position="center" :info-window="infoWindow")
-          v-polygon(:paths="polygonPaths" :draggable="polygonEdition" :editable="polygonEdition" @path-changed="pathChangeHandler")
-        .polygon-options
-          input#polygonEdition(type="checkbox" v-model="polygonEdition")
-          label(for="polygonEdition") Allow Edition
+          v-polygon(:paths="polygonPaths" :draggable="shapeEdition === 'polygon'" :editable="shapeEdition === 'polygon'" @path-changed="pathChangeHandler")
+        .shape-options
+          label(for="disabledEdition") None
+            input#disabledEdition(type="radio" name="shapes" value="" v-model="shapeEdition")
+          label(for="polygonEdition") Polygon Draw
+            input#polygonEdition(type="radio" name="shapes" value="polygon" v-model="shapeEdition")
+          label(for="polylineEdition") Polyline Draw
+            input#polylineEdition(type="radio" name="shapes" value="polyline" v-model="shapeEdition")
       .events-box
         h1 Map Events
         .event(v-for="event in events" :class="{active: focused.indexOf(event) > -1}") {{ event }}
@@ -57,13 +61,13 @@ export default {
       center: { lat: -23.4070511, lng: -51.9428867 },
       focused: [],
       polygonPaths: [],
-      polygonEdition: false
+      shapeEdition: ''
     }
   },
   methods: {
     onClick({map, event}) {
       this.focusEvent('click')    
-      if (this.polygonEdition) {
+      if (this.shapeEdition === 'polygon') {
         this.polygonPaths.push({lat: event.latLng.lat(), lng: event.latLng.lng()})
       }
     },
@@ -119,12 +123,18 @@ export default {
       max-width 800px
       max-height 800px
 
-    .polygon-options
+    .shape-options
+      display flex
+      align-items center
+      flex-wrap wrap
       padding 10px
-      text-align center
 
       label
-        margin-left 10px
+        margin-right 20px
+
+        input
+          float left
+          margin-right 5px
 
     .events-box
       padding 2rem
