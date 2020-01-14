@@ -26,7 +26,8 @@
           @zoom-changed="focusEvent('zoom-changed')"
         )
           v-marker(:position="center" :info-window="infoWindow")
-          v-polygon(:paths="polygonPaths" :draggable="shapeEdition === 'polygon'" :editable="shapeEdition === 'polygon'" @path-changed="pathChangeHandler")
+          v-polygon(:paths="polygonPaths" :draggable="shapeEdition === 'polygon'" :editable="shapeEdition === 'polygon'" @path-changed="polygonPathChangeHandler")
+          v-polyline(:path="polylinePath" :draggable="shapeEdition === 'polyline'" :editable="shapeEdition === 'polyline'" @path-changed="polylinePathChangeHandler")
         .shape-options
           label(for="disabledEdition") None
             input#disabledEdition(type="radio" name="shapes" value="" v-model="shapeEdition")
@@ -61,6 +62,7 @@ export default {
       center: { lat: -23.4070511, lng: -51.9428867 },
       focused: [],
       polygonPaths: [],
+      polylinePath: [],
       shapeEdition: ''
     }
   },
@@ -70,10 +72,20 @@ export default {
       if (this.shapeEdition === 'polygon') {
         this.polygonPaths.push({lat: event.latLng.lat(), lng: event.latLng.lng()})
       }
+
+      if (this.shapeEdition === 'polyline') {
+        this.polylinePath.push({lat: event.latLng.lat(), lng: event.latLng.lng()})
+      }
     },
-    pathChangeHandler(newPath) {
+
+    polygonPathChangeHandler(newPath) {
       this.polygonPaths = [...newPath]
     },
+
+    polylinePathChangeHandler(newPath) {
+      this.polylinePath = [...newPath]
+    },
+
     focusEvent(eventString) {
       const index = this.focused.findIndex(i => i === eventString);
       if (index > -1) {
