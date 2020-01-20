@@ -3,9 +3,3 @@ node_js:
   - "12.13"
 script:
   - yarn dist
-deploy:
-  provider: npm
-  email: $EMAIL
-  api_key: $NPM_TOKEN
-  on:
-    tags: true

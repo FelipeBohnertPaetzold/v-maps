@@ -41,40 +41,46 @@
 </template>
 
 <script>
-import mapEvents from "./components/mapEvents";
+import mapEvents from './components/mapEvents'
 
 export default {
-  name: "app",
+  name: 'app',
   computed: {
     events() {
-      return mapEvents.map(i => i.emit);
+      return mapEvents.map(i => i.emit)
     },
     infoWindow() {
       return (
-        "" +
-        "<h1>Hello World</h1>" +
+        '' +
+        '<h1>Hello World</h1>' +
         "<p class='paragraph'>This is a info window support for v-maps. ;)</p>"
-      );
-    }
+      )
+    },
   },
   data() {
-    return { 
+    return {
       center: { lat: -23.4070511, lng: -51.9428867 },
       focused: [],
       polygonPaths: [],
       polylinePath: [],
-      shapeEdition: ''
+      shapeEdition: '',
     }
   },
   methods: {
-    onClick({map, event}) {
-      this.focusEvent('click')    
+    onClick({ map, event }) {
+      this.focusEvent('click')
       if (this.shapeEdition === 'polygon') {
-        this.polygonPaths.push({lat: event.latLng.lat(), lng: event.latLng.lng()})
+        this.polygonPaths.push({
+          lat: event.latLng.lat(),
+          lng: event.latLng.lng(),
+        })
       }
 
       if (this.shapeEdition === 'polyline') {
-        this.polylinePath.push({lat: event.latLng.lat(), lng: event.latLng.lng()})
+        this.polylinePath.push({
+          lat: event.latLng.lat(),
+          lng: event.latLng.lng(),
+        })
       }
     },
 
@@ -87,80 +93,79 @@ export default {
     },
 
     focusEvent(eventString) {
-      const index = this.focused.findIndex(i => i === eventString);
+      const index = this.focused.findIndex(i => i === eventString)
       if (index > -1) {
-        clearTimeout(this[eventString]);
-        this.focused.shift(eventString);
+        clearTimeout(this[eventString])
+        this.focused.shift(eventString)
       }
-      this.focused.push(eventString);
+      this.focused.push(eventString)
       this[eventString] = setTimeout(() => {
-        this.focused.shift(eventString);
-      }, 1200);
-    }
-  }
-};
+        this.focused.shift(eventString)
+      }, 1200)
+    },
+  },
+}
 </script>
 
 <style lang="stylus">
-  *
-    font-family "Helvetica Neue"
-    margin 0
-    padding 0
+*
+  font-family "Helvetica Neue"
+  margin 0
+  padding 0
+  color #444
+
+h1
+  font-size 1.2rem
+
+p.paragraph
+  font-size .9rem
+  font-weight normal
+  padding-top .4rem
+
+body
+  margin 0
+  padding 0
+
+.flex-box-centered
+  height 100vh
+  width 100%
+  align-items center
+  justify-content center
+  display flex
+  flex-wrap wrap
+
+  .map
+    border-radius 15px
+    width 60vh
+    height 60vh
+    max-width 800px
+    max-height 800px
+
+  .shape-options
+    display flex
+    align-items center
+    flex-wrap wrap
+    padding 10px
+
+    label
+      margin-right 20px
+
+      input
+        float left
+        margin-right 5px
+
+  .events-box
+    padding 2rem
     color #444
 
-  h1
-    font-size 1.2rem
+    .event
+      padding 2.5px 5px
+      border-radius 5px
+      margin-bottom 1px
+      background-color #fff
+      transition 0.4s
 
-  p.paragraph
-    font-size .9rem
-    font-weight normal
-    padding-top .4rem
-
-  body  
-    margin 0
-    padding 0
-
-  .flex-box-centered
-    height 100vh
-    width 100%
-    align-items center
-    justify-content center
-    display flex
-    flex-wrap wrap
-
-    .map
-      border-radius 15px
-      width 60vh
-      height 60vh
-      max-width 800px
-      max-height 800px
-
-    .shape-options
-      display flex
-      align-items center
-      flex-wrap wrap
-      padding 10px
-
-      label
-        margin-right 20px
-
-        input
-          float left
-          margin-right 5px
-
-    .events-box
-      padding 2rem
-      color #444
-
-      .event
-        padding 2.5px 5px
-        border-radius 5px
-        margin-bottom 1px
-        background-color #fff
-        transition 0.4s
-
-        &.active
-          background-color #8e44ad
-          color #ecf0f1
-
+      &.active
+        background-color #8e44ad
+        color #ecf0f1
 </style>

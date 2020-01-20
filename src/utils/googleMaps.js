@@ -14,11 +14,12 @@ class GoogleMaps {
       params.key = params.apiKey
     }
     if (!this.loaded && !this.promise) {
-      this.promise = asyncJs(`https://maps.googleapis.com/maps/api/js?${queryString(params)}`)
+      this.promise = asyncJs(
+        `https://maps.googleapis.com/maps/api/js?${queryString(params)}`,
+      )
     }
     return this.promise
   }
 }
 
 export default new GoogleMaps()
-

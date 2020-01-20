@@ -6,5 +6,5 @@ Vue.config.productionTip = false
 
 Vue.use(VMaps, { version: '2.8' })
 new Vue({
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')
