@@ -24,14 +24,14 @@ or:
       import VMaps from 'v-maps'
       
       // { key: string, version?: string, libraries?: Array<string> }
-      const googleApiOptions = {key: 'YOUR_GOOGLE_MAPS_API_KEY'}
+      const googleApiOptions = { key: 'YOUR_GOOGLE_MAPS_API_KEY' }
       Vue.use(VMaps, googleApiOptions)
     ```
     - using global registration in component
     
     ```vue
     <template>
-      <v-map :center="{lat: -23.4070511, lng: -51.9428867}" />
+      <v-map :center="{ lat: -23.4070511, lng: -51.9428867 }" />
     </template>
     ```
     - using global registration map with markers
@@ -169,6 +169,34 @@ or:
     | editable    | no        | Boolean | false    | Allows to edit polyline's vertexes
     | strokeColor | no        | String  | #00ff00  | Polyne's stroke color
     | options     | no        | Object  | {}       | Other options for polyline (https://developers.google.com/maps/documentation/javascript/reference/polygon#PolylineOptions)
+ 
+ - v-heatmap
+
+    **Important:** To use the heat map it is necessary to include the visualization library when registering the library.
+
+    global:
+
+    ```js
+      const googleApiOptions = { key: 'YOUR_GOOGLE_MAPS_API_KEY', libraries: ['visualization'] }
+      Vue.use(VMaps, googleApiOptions)
+    ```
+
+    or locally:
+    
+    ```vue
+      <template>
+        <v-map :center="center" api-key="YOUR_GOOGLE_MAPS_API_KEY" :apiOptions="{ libraries: ['visualization']}">
+          <v-marker :position="center" />
+          <v-polygon :paths="polygonPaths" />
+          <v-polyline :path="polylinePath" />
+        </v-map>
+      </template>
+    ```
+
+    | Property    |  Required |  Type   |  Default | Description
+    |-------------|-----------|---------|----------|-----------------
+    | points      | no        | Array   | []       | Array of objects ```[{ lat: -23.407056, lng: -51.9428867}]```
+    | options     | no        | Object  | {}       | Other options for polyline (https://developers.google.com/maps/documentation/javascript/heatmaplayer?#overview)
 
 ### Events
 
