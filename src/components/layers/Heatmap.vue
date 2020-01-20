@@ -11,8 +11,7 @@ export default {
   created() {
     const { $parent, points } = this
     const heatmapData = points.map(
-      ({ latitude, longitude }) =>
-        new window.google.maps.LatLng(latitude, longitude),
+      ({ lat, lng }) => new window.google.maps.LatLng(lat, lng),
     )
     this.heatmapRef = new window.google.maps.visualization.HeatmapLayer({
       data: heatmapData,
