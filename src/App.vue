@@ -28,6 +28,7 @@
           v-marker(:position="center" :info-window="infoWindow")
           v-polygon(:paths="polygonPaths" :draggable="shapeEdition === 'polygon'" :editable="shapeEdition === 'polygon'" @path-changed="polygonPathChangeHandler")
           v-polyline(:path="polylinePath" :draggable="shapeEdition === 'polyline'" :editable="shapeEdition === 'polyline'" @path-changed="polylinePathChangeHandler")
+          v-heatmap(:points="heatmapData" v-if="showHeatmap")
         .shape-options
           label(for="disabledEdition") None
             input#disabledEdition(type="radio" name="shapes" value="" v-model="shapeEdition")
@@ -35,6 +36,8 @@
             input#polygonEdition(type="radio" name="shapes" value="polygon" v-model="shapeEdition")
           label(for="polylineEdition") Polyline Draw
             input#polylineEdition(type="radio" name="shapes" value="polyline" v-model="shapeEdition")
+          label(for="heatmap") Show heatmap
+            input#heatmap(type="checkbox" v-model="showHeatmap")
       .events-box
         h1 Map Events
         .event(v-for="event in events" :class="{active: focused.indexOf(event) > -1}") {{ event }}
@@ -56,6 +59,42 @@ export default {
         "<p class='paragraph'>This is a info window support for v-maps. ;)</p>"
       )
     },
+    heatmapData() {
+      return [
+        { latitude: -23.4154264, longitude: -51.960786 },
+        { latitude: -23.4101886, longitude: -51.9454652 },
+        { latitude: -23.4114882, longitude: -51.9461733 },
+        { latitude: -23.4154264, longitude: -51.960786 },
+        { latitude: -23.4154464, longitude: -51.960786 },
+        { latitude: -23.4154664, longitude: -51.960786 },
+        { latitude: -23.4164264, longitude: -51.960786 },
+        { latitude: -23.407392, longitude: -51.941651 },
+        { latitude: -23.407392, longitude: -51.941651 },
+        { latitude: -23.407392, longitude: -51.941651 },
+        { latitude: -23.407392, longitude: -51.941651 },
+        { latitude: -23.407392, longitude: -51.941651 },
+        { latitude: -23.406895, longitude: -51.942986 },
+        { latitude: -23.406895, longitude: -51.942986 },
+        { latitude: -23.406895, longitude: -51.942986 },
+        { latitude: -23.406895, longitude: -51.942986 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+        { latitude: -23.407094, longitude: -51.942626 },
+      ]
+    },
   },
   data() {
     return {
@@ -64,6 +103,7 @@ export default {
       polygonPaths: [],
       polylinePath: [],
       shapeEdition: '',
+      showHeatmap: true,
     }
   },
   methods: {
