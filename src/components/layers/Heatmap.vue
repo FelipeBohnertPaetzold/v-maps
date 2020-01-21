@@ -6,13 +6,14 @@
 export default {
   props: {
     points: { type: Array, default: () => [] },
-    // options: { type: Object, default: () => ({}) },
+    options: { type: Object, default: () => ({}) },
   },
   created() {
     const { $parent, points } = this
-    const heatmapData = points.map(
-      ({ lat, lng }) => new window.google.maps.LatLng(lat, lng),
-    )
+    const heatmapData = points.map(({ lat, lng, ...rest }) => ({
+      location: new window.google.maps.LatLng(lat, lng),
+      ...rest,
+    }))
     this.heatmapRef = new window.google.maps.visualization.HeatmapLayer({
       data: heatmapData,
       ...this.options,

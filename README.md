@@ -186,16 +186,14 @@ or:
     ```vue
       <template>
         <v-map :center="center" api-key="YOUR_GOOGLE_MAPS_API_KEY" :apiOptions="{ libraries: ['visualization']}">
-          <v-marker :position="center" />
-          <v-polygon :paths="polygonPaths" />
-          <v-polyline :path="polylinePath" />
+          <v-heatmap :points="points" />
         </v-map>
       </template>
     ```
 
     | Property    |  Required |  Type   |  Default | Description
     |-------------|-----------|---------|----------|-----------------
-    | points      | no        | Array   | []       | Array of objects ```[{ lat: -23.407056, lng: -51.9428867}]```
+    | points      | no        | Array   | []       | Array of objects ```[{ lat: -23.407056, lng: -51.9428867, weight?: 2}]```
     | options     | no        | Object  | {}       | Other options for polyline (https://developers.google.com/maps/documentation/javascript/heatmaplayer?#overview)
 
 ### Events

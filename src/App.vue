@@ -28,7 +28,7 @@
           v-marker(:position="center" :info-window="infoWindow")
           v-polygon(:paths="polygonPaths" :draggable="shapeEdition === 'polygon'" :editable="shapeEdition === 'polygon'" @path-changed="polygonPathChangeHandler")
           v-polyline(:path="polylinePath" :draggable="shapeEdition === 'polyline'" :editable="shapeEdition === 'polyline'" @path-changed="polylinePathChangeHandler")
-          v-heatmap(:points="heatmapData" v-if="showHeatmap")
+          v-heatmap(:points="heatmapData" :options="{radius: 20}" v-if="showHeatmap")
         .shape-options
           label(for="disabledEdition") None
             input#disabledEdition(type="radio" name="shapes" value="" v-model="shapeEdition")
@@ -61,7 +61,7 @@ export default {
     },
     heatmapData() {
       return [
-        { lat: -23.4154264, lng: -51.960786 },
+        { lat: -23.4154264, lng: -51.960786, weight: 100 },
         { lat: -23.4101886, lng: -51.9454652 },
         { lat: -23.4114882, lng: -51.9461733 },
         { lat: -23.4154264, lng: -51.960786 },
