@@ -38,6 +38,7 @@
             input#polylineEdition(type="radio" name="shapes" value="polyline" v-model="shapeEdition")
           label(for="heatmap") Show heatmap
             input#heatmap(type="checkbox" v-model="showHeatmap")
+          button(@click="heatmapData.push({ lat: -23.407094, lng: -51.942626, weight: 100 })") Add heatmap location
       .events-box
         h1 Map Events
         .event(v-for="event in events" :class="{active: focused.indexOf(event) > -1}") {{ event }}
@@ -59,8 +60,16 @@ export default {
         "<p class='paragraph'>This is a info window support for v-maps. ;)</p>"
       )
     },
-    heatmapData() {
-      return [
+  },
+  data() {
+    return {
+      center: { lat: -23.4070511, lng: -51.9428867 },
+      focused: [],
+      polygonPaths: [],
+      polylinePath: [],
+      shapeEdition: '',
+      showHeatmap: true,
+      heatmapData: [
         { lat: -23.4154264, lng: -51.960786, weight: 100 },
         { lat: -23.4101886, lng: -51.9454652 },
         { lat: -23.4114882, lng: -51.9461733 },
@@ -93,17 +102,7 @@ export default {
         { lat: -23.407094, lng: -51.942626 },
         { lat: -23.407094, lng: -51.942626 },
         { lat: -23.407094, lng: -51.942626 },
-      ]
-    },
-  },
-  data() {
-    return {
-      center: { lat: -23.4070511, lng: -51.9428867 },
-      focused: [],
-      polygonPaths: [],
-      polylinePath: [],
-      shapeEdition: '',
-      showHeatmap: true,
+      ],
     }
   },
   methods: {
