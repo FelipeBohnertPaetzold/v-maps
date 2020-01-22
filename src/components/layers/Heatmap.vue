@@ -8,21 +8,24 @@ export default {
     points: { type: Array, default: () => [] },
     options: { type: Object, default: () => ({}) },
   },
+  computed: {
+    heatmapPoints() {
+      return this.points.map(({ lat, lng, ...rest }) => ({
+        location: new window.google.maps.LatLng(lat, lng),
+        ...rest,
+      }))
+    },
+  },
   watch: {
-    points() {
-      this.clearHeatmap()
-      this.createHeatmap()
+    heatmapPoints() {
+      this.heatmapRef.setData(this.heatmapPoints)
     },
   },
   methods: {
     createHeatmap() {
-      const { $parent, points } = this
-      const heatmapData = points.map(({ lat, lng, ...rest }) => ({
-        location: new window.google.maps.LatLng(lat, lng),
-        ...rest,
-      }))
+      const { $parent } = this
       this.heatmapRef = new window.google.maps.visualization.HeatmapLayer({
-        data: heatmapData,
+        data: this.heatmapPoints,
         ...this.options,
         map: $parent.map,
       })
