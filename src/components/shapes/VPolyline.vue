@@ -48,12 +48,12 @@ export default {
         this.path.splice(0)
         this.path.push(...paths)
         this.polylineRef.setPath(paths)
-        this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().g))
+        this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().i))
       }
     })
 
     this.polylineRef.addListener('mouseup', () => {
-      this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().g))
+      this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().i))
     })
   },
 
@@ -67,10 +67,10 @@ export default {
       this.polylineRef.setEditable(newEditableValue)
 
       if (this.polylineRef.getPath()) {
-        paths.push(...this.getLatLng(this.polylineRef.getPath().g))
+        paths.push(...this.getLatLng(this.polylineRef.getPath().i))
       }
       this.polylineRef.setPath(paths)
-      this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().g))
+      this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().i))
     },
 
     draggable(newDraggableValue) {
@@ -78,10 +78,10 @@ export default {
       this.polylineRef.setDraggable(newDraggableValue)
 
       if (this.polylineRef.getPath()) {
-        paths.push(...this.getLatLng(this.polylineRef.getPath().g))
+        paths.push(...this.getLatLng(this.polylineRef.getPath().i))
       }
       this.polylineRef.setPath(paths)
-      this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().g))
+      this.$emit('path-changed', this.getLatLng(this.polylineRef.getPath().i))
     },
   },
 

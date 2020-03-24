@@ -47,6 +47,8 @@ export default {
       draggable: draggable,
     })
 
+    window.polygon = this.polygonRef
+
     this.polygonRef.addListener('rightclick', event => {
       if (event.vertex > -1) {
         this.polygonRef.getPath().removeAt(event.vertex)
@@ -59,12 +61,12 @@ export default {
         this.paths.splice(0)
         this.paths.push(...paths)
         this.polygonRef.setPath(paths)
-        this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
+        this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().i))
       }
     })
 
     this.polygonRef.addListener('mouseup', () => {
-      this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
+      this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().i))
     })
   },
 
@@ -78,10 +80,10 @@ export default {
       this.polygonRef.setEditable(newEditableValue)
 
       if (this.polygonRef.getPath()) {
-        paths.push(...this.getLatLng(this.polygonRef.getPath().g))
+        paths.push(...this.getLatLng(this.polygonRef.getPath().i))
       }
       this.polygonRef.setPath(paths)
-      this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
+      this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().i))
     },
 
     draggable(newDraggableValue) {
@@ -89,10 +91,10 @@ export default {
       this.polygonRef.setDraggable(newDraggableValue)
 
       if (this.polygonRef.getPath()) {
-        paths.push(...this.getLatLng(this.polygonRef.getPath().g))
+        paths.push(...this.getLatLng(this.polygonRef.getPath().i))
       }
       this.polygonRef.setPath(paths)
-      this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().g))
+      this.$emit('path-changed', this.getLatLng(this.polygonRef.getPath().i))
     },
   },
 
