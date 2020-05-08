@@ -25,7 +25,7 @@
           @tilt-changed="focusEvent('tilt-changed')"
           @zoom-changed="focusEvent('zoom-changed')"
         )
-          v-marker(:position="center" :info-window="infoWindow")
+          v-marker(:position="markerPosition" :info-window="infoWindow")
           v-polygon(:paths="polygonPaths" :draggable="shapeEdition === 'polygon'" :editable="shapeEdition === 'polygon'" @path-changed="polygonPathChangeHandler")
           v-polyline(:path="polylinePath" :draggable="shapeEdition === 'polyline'" :editable="shapeEdition === 'polyline'" @path-changed="polylinePathChangeHandler")
           v-heatmap(:points="heatmapData" :options="{radius: 20}" v-if="showHeatmap")
@@ -39,6 +39,11 @@
           label(for="heatmap") Show heatmap
             input#heatmap(type="checkbox" v-model="showHeatmap")
           button(@click="heatmapData.push({ lat: -23.407094, lng: -51.942626, weight: 100 })") Add heatmap location
+        div
+          label Marker Latitude: 
+          input(v-model.number='markerPosition.lat')
+          label &nbsp;- Marker Longitude: 
+          input(v-model.number='markerPosition.lng')
       .events-box
         h1 Map Events
         .event(v-for="event in events" :class="{active: focused.indexOf(event) > -1}") {{ event }}
@@ -64,6 +69,7 @@ export default {
   data() {
     return {
       center: { lat: -23.4070511, lng: -51.9428867 },
+      markerPosition: { lat: -23.4070511, lng: -51.9428867 },
       focused: [],
       polygonPaths: [],
       polylinePath: [],

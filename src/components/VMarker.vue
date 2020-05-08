@@ -37,6 +37,17 @@ export default {
   destroyed() {
     this.markerRef.setMap(null)
   },
+  watch: {
+    position: {
+     handler(coords){
+      if(!coords) return
+      const { lat, lng } = coords
+      const latlng = new google.maps.LatLng(lat, lng)
+      this.markerRef.setPosition(latlng)
+     },
+     deep: true
+    }
+  }
 }
 </script>
 
