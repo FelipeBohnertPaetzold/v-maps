@@ -222,6 +222,12 @@ or:
     | tilt-changed       | map, event                | tilt_changed
     | zoom-changed       | map, event                | zoom-changed
 
+- v-marker
+
+    | Vue Event          | Params                    | Info
+    |--------------------|---------------------------|------------------------
+    | click              | None                      | This only works if the marker has no info window
+
 - v-polygon
 
     | Vue Event          | Params                    | Native google map event

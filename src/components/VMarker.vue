@@ -32,6 +32,8 @@ export default {
     })
     if (this.infoWindow) {
       this.addInfoWindow()
+    } else {
+      this.markerRef.addListener('click', () => this.$emit('click'))
     }
   },
   destroyed() {
@@ -39,15 +41,15 @@ export default {
   },
   watch: {
     position: {
-     handler(coords){
-      if(!coords) return
-      const { lat, lng } = coords
-      const latlng = new google.maps.LatLng(lat, lng)
-      this.markerRef.setPosition(latlng)
-     },
-     deep: true
-    }
-  }
+      handler(coords) {
+        if (!coords) return
+        const { lat, lng } = coords
+        const latlng = new google.maps.LatLng(lat, lng)
+        this.markerRef.setPosition(latlng)
+      },
+      deep: true,
+    },
+  },
 }
 </script>
 
